@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">ProjectManager</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="let_s_get_started">Let\'s Get Started</string>
+    <string name="collaborate_with_your_friends_and_plan_your_n_project_together_across_multiple_devices_n_on_project_manager_minimalist_interface">Collaborate with your friends and Plan your \n project together across multiple devices \n on Project Manager minimalist interface</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="intro_image">Intro Image</string>
+    <string name="enter_your_email_id">Enter your email Id and password to sign in</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="end_to_end_encrypted">By signing in, you agree to our terms and policies</string>
+    <string name="enter_your_name_email_and_password_to_sign_in">Enter your name, email and password to register in this app</string>
+    <string name="Name">Name</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="project_manager">Project Manager</string>
+    <string name="button">Button</string>
+    <string name="app_logo">App Logo</string>
+    <string name="boards">Boards</string>
+    <string name="cards">Cards</string>
+    <string name="news">News</string>
+    <string name="profile">Profile</string>
+    <string name="update">Update</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="profile_image">profile image</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="search_in_boards">Search in Boards</string>
+    <string name="create_board">Create Board</string>
+    <string name="board_name">Board Name</string>
+    <string name="progress_bar">Progress Bar</string>
+    <string name="no_boards">No Boards</string>
+    <string name="my_profile">My Profile</string>
+    <string name="back_button">back button</string>
+    <string name="notes">notes</string>
+    <string name="my_notes">My Notes</string>
+    <string name="back">back</string>
+</resources>

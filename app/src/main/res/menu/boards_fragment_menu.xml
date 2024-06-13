@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/profileFragment2"
+        android:icon="@drawable/baseline_account_box_24"
+        android:title="@string/my_profile" />
+    <item
+        android:id="@+id/notesFragment"
+        android:icon="@drawable/baseline_notes_24"
+        android:title="@string/my_notes" />
+</menu>

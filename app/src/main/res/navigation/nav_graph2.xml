@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph2"
+    app:startDestination="@id/boardsFragment2">
+
+    <fragment
+        android:id="@+id/boardsFragment2"
+        android:name="com.example.projectmanager.boards.BoardsFragment"
+        android:label="fragment_boards"
+        tools:layout="@layout/fragment_boards" >
+        <action
+            android:id="@+id/action_boardsFragment2_to_profileFragment2"
+            app:destination="@id/profileFragment2"
+            app:popUpTo="@id/boardsFragment2"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_boardsFragment2_to_boardsCreateFragment"
+            app:destination="@id/boardsCreateFragment"
+            app:popUpTo="@id/boardsFragment2"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardsFragment2"
+        android:name="com.example.projectmanager.cards.CardsFragment"
+        android:label="fragment_cards"
+        tools:layout="@layout/fragment_cards" />
+    <fragment
+        android:id="@+id/newsFragment2"
+        android:name="com.example.projectmanager.news.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.example.projectmanager.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment2_to_boardsFragment2"
+            app:destination="@id/boardsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/boardsCreateFragment"
+        android:name="com.example.projectmanager.boards.BoardsCreateFragment"
+        android:label="fragment_boards_create"
+        tools:layout="@layout/fragment_boards_create" >
+        <action
+            android:id="@+id/action_boardsCreateFragment_to_boardsFragment2"
+            app:destination="@id/boardsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.example.projectmanager.notes.NotesFragment"
+        android:label="fragment_notes"
+        tools:layout="@layout/fragment_notes" />
+</navigation>
