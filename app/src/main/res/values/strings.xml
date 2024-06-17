@@ -35,4 +35,12 @@
     <string name="notes">notes</string>
     <string name="my_notes">My Notes</string>
     <string name="back">back</string>
+    <string name="notes_image">Notes Image</string>
+    <string name="button_to_add_note">Button To add note</string>
+    <string name="add_note">Add Note</string>
+    <string name="enter_the_title">Enter the Title</string>
+    <string name="enter_the_description">Enter the Description</string>
+    <string name="save">Save</string>
+    <string name="add">Add</string>
+    <string name="edit_note">Edit Note</string>
 </resources>
