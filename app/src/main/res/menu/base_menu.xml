@@ -15,7 +15,7 @@
         android:icon="@drawable/baseline_newspaper_24"
         android:title="@string/news" />
     <item
-        android:id="@+id/notesFragment"
+        android:id="@+id/noteFragment"
         android:icon="@drawable/baseline_notes_24"
         android:title="@string/my_notes" />
 

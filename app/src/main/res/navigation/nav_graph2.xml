@@ -50,8 +50,8 @@
             app:destination="@id/boardsFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/notesFragment"
-        android:name="com.example.projectmanager.notes.NotesFragment"
-        android:label="fragment_notes"
-        tools:layout="@layout/fragment_notes" />
+        android:id="@+id/noteFragment"
+        android:name="com.example.projectmanager.note.NoteFragment"
+        android:label="fragment_note"
+        tools:layout="@layout/fragment_note" />
 </navigation>
