@@ -16,6 +16,8 @@ class NoteViewModel(private val database : NoteDao, application: Application) : 
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    val noteList = database.getAllNotes()
+
     fun addNote(note : Note) =
         uiScope.launch{
             withContext(Dispatchers.IO){
