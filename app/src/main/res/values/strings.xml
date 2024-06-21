@@ -45,4 +45,6 @@
     <string name="edit_note">Edit Note</string>
     <string name="note_title">Note Title</string>
     <string name="description">Description</string>
+    <string name="delete">Delete</string>
+    <string name="search">Search</string>
 </resources>

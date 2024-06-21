@@ -17,8 +17,8 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:onClick="@{()->clickListener.onClick(note)}"
+        android:layout_margin="8dp"
         app:cardElevation="6dp"
         app:cardCornerRadius="10dp">
 

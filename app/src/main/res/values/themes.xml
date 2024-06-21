@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ProjectManager" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Theme.ProjectManager" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/dark_orchid</item>
         <item name="colorPrimaryVariant">@color/orchid</item>

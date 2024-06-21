@@ -25,6 +25,7 @@ class NoteAdapter(private val clickListener: NoteClickListener) : ListAdapter<No
         fun bind(item: Note, clickListener: NoteClickListener) {
             binding.noteDesc.text = item.noteDesc
             binding.noteTitle.text = item.noteTitle
+            binding.note = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }
@@ -52,5 +53,4 @@ class NoteAdapter(private val clickListener: NoteClickListener) : ListAdapter<No
     class NoteClickListener(val clickListener: (note: Note) -> Unit) {
         fun onClick(note: Note) = clickListener(note)
     }
-
 }
