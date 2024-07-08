@@ -47,4 +47,24 @@
     <string name="description">Description</string>
     <string name="delete">Delete</string>
     <string name="search">Search</string>
+    <string name="board_image">board image</string>
+    <string name="members">Members</string>
+    <string name="edit">Edit</string>
+    <string name="add_list">Add List</string>
+    <string name="tasks_image">Tasks Image</string>
+    <string name="add_card">Add Card</string>
+    <string name="cross">Cross</string>
+    <string name="search_member">Search Member</string>
+    <string name="cancel">Cancel</string>
+    <string name="label_color">Label Color</string>
+    <string name="select_color">Select Color</string>
+    <string name="duedate">DueDate</string>
+    <string name="select_members">Select Members</string>
+    <string name="select_due_date">Select Due Date</string>
+    <string name="project_nmanager">Project\nManager</string>
+    <string name="empty_string"> </string>
+    <string name="add_board">Add Board</string>
+    <string name="delete_board">Delete Board</string>
+    <string name="edit_board">Edit Board</string>
+    <string name="done_button">done button</string>
 </resources>

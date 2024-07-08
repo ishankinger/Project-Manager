@@ -50,51 +50,68 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
 
-                    <EditText
-                        android:id="@+id/signUpName"
-                        android:layout_width="260dp"
-                        android:layout_height="64dp"
-                        android:layout_marginLeft="32dp"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginRight="32dp"
-                        android:layout_gravity="center"
-                        android:hint="@string/Name"
-                        android:autofillHints="name"
-                        android:inputType="textVisiblePassword"
-                        android:textSize="16sp"
-                        android:shadowColor="@color/dark_orchid"
-                        android:textColor="@color/dark_orchid"/>
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/signUpName"
+                            android:layout_width="260dp"
+                            android:layout_height="48dp"
+                            android:layout_marginLeft="32dp"
+                            android:layout_marginTop="32dp"
+                            android:layout_marginRight="32dp"
+                            android:layout_gravity="center"
+                            android:hint="@string/Name"
+                            android:autofillHints="name"
+                            android:inputType="textVisiblePassword"
+                            android:textSize="16sp"
+                            android:shadowColor="@color/dark_orchid"
+                            android:textColor="@color/dark_orchid"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <EditText
-                        android:id="@+id/signUpEmail"
-                        android:layout_width="260dp"
-                        android:layout_height="64dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginLeft="32dp"
-                        android:layout_marginRight="32dp"
-                        android:layout_gravity="center"
-                        android:hint="@string/email"
-                        android:autofillHints="emailAddress"
-                        android:inputType="textEmailAddress"
-                        android:textSize="16sp"
-                        android:shadowColor="@color/dark_orchid"
-                        android:textColor="@color/dark_orchid"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
 
-                    <EditText
-                        android:id="@+id/signUpPassword"
-                        android:layout_width="260dp"
-                        android:layout_height="64dp"
-                        android:layout_marginLeft="32dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginRight="32dp"
-                        android:layout_gravity="center"
-                        android:hint="@string/password"
-                        android:autofillHints="password"
-                        android:inputType="textPassword"
-                        android:textSize="16sp"
-                        android:shadowColor="@color/dark_orchid"
-                        android:textColor="@color/dark_orchid"/>
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/signUpEmail"
+                            android:layout_width="260dp"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginLeft="32dp"
+                            android:layout_marginRight="32dp"
+                            android:layout_gravity="center"
+                            android:hint="@string/email"
+                            android:autofillHints="emailAddress"
+                            android:inputType="textEmailAddress"
+                            android:textSize="16sp"
+                            android:shadowColor="@color/dark_orchid"
+                            android:textColor="@color/dark_orchid"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp">
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/signUpPassword"
+                            android:layout_width="260dp"
+                            android:layout_height="48dp"
+                            android:layout_marginLeft="32dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginRight="32dp"
+                            android:layout_gravity="center"
+                            android:hint="@string/password"
+                            android:autofillHints="password"
+                            android:inputType="textPassword"
+                            android:textSize="16sp"
+                            android:shadowColor="@color/dark_orchid"
+                            android:textColor="@color/dark_orchid"/>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                         android:id="@+id/signUpButton"

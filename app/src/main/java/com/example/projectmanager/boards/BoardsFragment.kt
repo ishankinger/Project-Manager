@@ -1,40 +1,50 @@
 package com.example.projectmanager.boards
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import android.widget.TextView
-import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.example.projectmanager.R
 import com.example.projectmanager.databinding.FragmentBoardsBinding
 import com.example.projectmanager.firebase.FireStore
 import com.example.projectmanager.models.Board
 import com.example.projectmanager.models.User
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class BoardsFragment : Fragment() {
+/**
+ * Boards fragment is home page of this app which contains all boards assigned to the user
+ * Here we can navigate to particular boards and can also navigate to create board fragment
+ */
+
+class BoardsFragment : Fragment(), MenuProvider {
 
     private lateinit var binding : FragmentBoardsBinding
-    private lateinit var mProgressDialog : Dialog
+    private lateinit var boardsListItemAdapter: BoardsListItemAdapter
+    private var bottomNavigationView: BottomNavigationView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_boards,container,false)
 
-        showProgressDialog(" ")
-        FireStore().signInRegisteredUser(this)
+        bottomNavigationView = activity?.findViewById(R.id.bottomNavigationView)
 
-        binding.boardsFragmentImage.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_boardsFragment2_to_profileFragment2)
-        }
+        (activity as? AppCompatActivity)?.supportActionBar?.title = "My Boards"
+
+        val menuHost : MenuHost = requireActivity()
+        menuHost.addMenuProvider(this,viewLifecycleOwner, Lifecycle.State.RESUMED)
+
+        showProgressDialog()
+        FireStore().signInRegisteredUser(this)
 
         binding.buttonBoards.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_boardsFragment2_to_boardsCreateFragment)
@@ -43,54 +53,33 @@ class BoardsFragment : Fragment() {
         return binding.root
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.boards_fragment_menu, menu)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
-                || super.onOptionsItemSelected(item)
-    }
-
+    // function called from fire store class after fetching the user details from database
     fun onUpdateBoardsFragment(user : User){
-
-        Glide.with(this)
-            .load(user.image)
-            .centerCrop()
-            .circleCrop()
-            .placeholder(R.drawable.ic_user_place_holder)
-            .into(binding.boardsFragmentImage)
-        Toast.makeText(context,"HELLO1",Toast.LENGTH_LONG).show()
+//        bottomNavigationView?.menu?.findItem(R.id.profileFragment2)?.setIcon(R.drawable.color_gradient)
         FireStore().getBoardsList(this)
     }
 
+    // function called from fire store class after fetching the boards list from database
+    // here we will connect list with recycler view and adapter
     fun populateBoardsListToUI(boardsList : ArrayList<Board>) {
-        Toast.makeText(context,"HELLO2",Toast.LENGTH_LONG).show()
+
         hideProgressDialog()
 
         if(boardsList.size > 0){
 
-            // show the boards recycler view and remove no_boards text from the screen
-            binding.recyclerViewBoards.visibility = View.VISIBLE
-            binding.noBoards.visibility = View.GONE
-
-            // making linear layout of recycler views
             binding.recyclerViewBoards.layoutManager = LinearLayoutManager(context)
             binding.recyclerViewBoards.setHasFixedSize(true)
 
-            // then connecting the recycler view's adapter to adapter that we have made
-            val adapter = context?.let { BoardsListItemAdapter(it, boardsList) }
-            binding.recyclerViewBoards.adapter = adapter
-
-            // adding the onclick listener to the boards
-            adapter?.setOnClickListener(object : BoardsListItemAdapter.OnClickListener {
-                override fun onClick(position: Int, model: Board) {
-                    Toast.makeText(context,"Board is clicked",Toast.LENGTH_SHORT).show()
-                }
+            boardsListItemAdapter = BoardsListItemAdapter(BoardsListItemAdapter.BoardsClickListener { board->
+                findNavController().navigate(BoardsFragmentDirections.actionBoardsFragment2ToTasksFragment(board.documentId))
             })
+
+            binding.recyclerViewBoards.adapter = boardsListItemAdapter
+            boardsListItemAdapter.submitList(boardsList)
+
+            binding.recyclerViewBoards.visibility = View.VISIBLE
+            binding.noBoards.visibility = View.GONE
+
         }
         else{
             binding.recyclerViewBoards.visibility = View.GONE
@@ -98,18 +87,29 @@ class BoardsFragment : Fragment() {
         }
     }
 
-    // function to show progress dialog box when some task is going on
-    private fun showProgressDialog(text : String){
-        mProgressDialog = context?.let { Dialog(it) }!!
-        mProgressDialog.setContentView(R.layout.dialog_progress)
-        mProgressDialog.findViewById<TextView>(R.id.progressBarText).text = text
-        mProgressDialog.setCancelable(false)
-        mProgressDialog.show()
+    // function providing menu to the fragment
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menu.clear()
+        menuInflater.inflate(R.menu.boards_fragment_menu,menu)
     }
 
-    // this will stop showing dialog box when long running task is completed
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when(menuItem.itemId){
+            R.id.addBoardMenu ->{
+                Navigation.findNavController(binding.root).navigate(R.id.action_boardsFragment2_to_boardsCreateFragment)
+                true
+            }
+            else-> false
+        }
+    }
+
+    // function to show progress bar when some task is going on
+    private fun showProgressDialog(){
+        binding.boardsProgressBar.visibility = View.VISIBLE
+    }
+
+    // this will stop showing progress bar when long running task is completed
     private fun hideProgressDialog(){
-        mProgressDialog.dismiss()
+        binding.boardsProgressBar.visibility = View.GONE
     }
-
 }

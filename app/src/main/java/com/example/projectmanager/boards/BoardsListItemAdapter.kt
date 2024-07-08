@@ -1,82 +1,66 @@
 package com.example.projectmanager.boards
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.projectmanager.R
+import com.example.projectmanager.databinding.ItemBoardsBinding
 import com.example.projectmanager.models.Board
 
+/**
+ * This is the adapter for the boards list recycler view
+ */
 
-open class BoardsListItemAdapter(
-    private val context: Context,
-    private var list: ArrayList<Board>
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BoardsListItemAdapter(private val clickListener: BoardsClickListener) : ListAdapter<Board,
+        BoardsListItemAdapter.ViewHolder>(BoardsDiffCallBack()){
 
-    private var onClickListener: OnClickListener? = null
-
-    // Inflates the item views which is designed in xml layout file
-    // create a new {@link ViewHolder} and initializes some private fields to be used by RecyclerView.
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MyViewHolder(
-            LayoutInflater.from(context).inflate(
-                R.layout.item_boards,
-                parent,
-                false
-            )
-        )
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position)!!,clickListener)
     }
 
-    // Binds each item in the ArrayList to a view
-    // Called when RecyclerView needs a new {@link ViewHolder} of the given type to represent an item.
-    // This new ViewHolder should be constructed with a new View that can represent the items
-    // of the given type. You can either create a new View manually or inflate it from an XML layout file.
-    @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val model = list[position]
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
+    }
 
-        if (holder is MyViewHolder) {
-
-            Glide
-                .with(context)
-                .load(model.image)
+    class ViewHolder private constructor(val binding: ItemBoardsBinding)
+        : RecyclerView.ViewHolder(binding.root){
+        fun bind(item: Board, clickListener: BoardsClickListener) {
+            binding.boardName.text = item.name
+            binding.boardCreatedBy.text = "Created By : " + item.createdBy
+            Glide.with(binding.root)
+                .load(item.image)
                 .centerCrop()
                 .circleCrop()
-                .placeholder(R.drawable.ic_user_place_holder)
-                .into(holder.itemView.findViewById(R.id.iv_board_image))
-
-            holder.itemView.findViewById<TextView>(R.id.tv_name).text = model.name
-            holder.itemView.findViewById<TextView>(R.id.tv_created_by).text = "Created By : ${model.createdBy}"
-
-            holder.itemView.setOnClickListener {
-
-                if (onClickListener != null) {
-                    onClickListener!!.onClick(position, model)
-                }
+                .placeholder(R.drawable.color_gradient)
+                .into(binding.boardImage)
+            binding.board = item
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
+        }
+        companion object {
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ItemBoardsBinding.inflate(layoutInflater,parent,false)
+                return ViewHolder(binding)
             }
         }
     }
 
-    // Gets the number of items in the list
-    override fun getItemCount(): Int {
-        return list.size
+    class BoardsDiffCallBack : DiffUtil.ItemCallback<Board>(){
+        override fun areContentsTheSame(oldItem: Board, newItem: Board): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areItemsTheSame(oldItem: Board, newItem: Board): Boolean {
+            return  oldItem.name == newItem.name &&
+                    oldItem.createdBy == newItem.createdBy
+        }
     }
 
-    // A function for OnClickListener where the Interface is the expected parameter..
-    fun setOnClickListener(onClickListener: OnClickListener) {
-        this.onClickListener = onClickListener
+    class BoardsClickListener(val clickListener: (board: Board) -> Unit) {
+        fun onClick(board: Board) = clickListener(board)
     }
-
-    // An interface for onclick items.
-    interface OnClickListener {
-        fun onClick(position: Int, model: Board)
-    }
-
-    // A ViewHolder describes an item view and metadata about its place within the RecyclerView.
-    private class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)
-
 }

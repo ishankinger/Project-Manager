@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.webkit.MimeTypeMap
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
@@ -29,6 +30,11 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.IOException
 
+/**
+ * Boards create fragment takes the name and image of the board and creates a new board
+ * in the firestore database under the 'board' name documents
+ */
+
 class BoardsCreateFragment : Fragment() {
 
     private lateinit var binding : FragmentBoardsCreateBinding
@@ -43,15 +49,11 @@ class BoardsCreateFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_boards_create,container,false)
 
-        // Initialize the BottomNavigationView instance
+        // Initialize the BottomNavigationView instance and hide the BottomNavigationView
         bottomNavigationView = activity?.findViewById(R.id.bottomNavigationView)
+        bottomNavigationView?.visibility = View.GONE
 
-        // Hide the BottomNavigationView when the fragment is created
-        hideBottomNavigationView()
-
-        binding.backButtonCreateBoard.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_boardsCreateFragment_to_boardsFragment2)
-        }
+        (activity as? AppCompatActivity)?.supportActionBar?.title = "Create Board"
 
         binding.createBoardImage.setOnClickListener {
             showImageChooser()
@@ -77,23 +79,9 @@ class BoardsCreateFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        // Hide the BottomNavigationView again when the fragment is resumed
-        hideBottomNavigationView()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // Show the BottomNavigationView when the fragment is paused
-        showBottomNavigationView()
-    }
-
-    private fun hideBottomNavigationView() {
-        bottomNavigationView?.visibility = View.GONE
-    }
-
-    private fun showBottomNavigationView() {
+    override fun onDestroy() {
+        super.onDestroy()
+        // Show the BottomNavigationView when the fragment is destroyed
         bottomNavigationView?.visibility = View.VISIBLE
     }
 
@@ -141,7 +129,6 @@ class BoardsCreateFragment : Fragment() {
                             + "." + getFileExtension(mSelectedImageFileUri))
 
             sRef.putFile(mSelectedImageFileUri!!)
-
                 .addOnSuccessListener {
                     it.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
                         mProfileImageURL = it.toString()
@@ -160,14 +147,17 @@ class BoardsCreateFragment : Fragment() {
             .getExtensionFromMimeType(requireActivity().contentResolver.getType(uri!!))
     }
 
-
+    // function called from firestore class after creating a new board document in firestore database
     fun boardCreatedSuccessfully(){
         hideProgressDialog()
         Toast.makeText(context,"Board Created Successfully",Toast.LENGTH_SHORT).show()
         Navigation.findNavController(binding.root).navigate(R.id.action_boardsCreateFragment_to_boardsFragment2)
     }
 
+    // function called from firestore class after getting information about user
     fun createBoard(mUser : User){
+
+        // in ;assigned to' list of this board, current user's id is added
         val assignedUsersArrayList : ArrayList<String> = ArrayList()
         assignedUsersArrayList.add(FireStore().getCurrentUserID())
 

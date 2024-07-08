@@ -22,6 +22,11 @@ import com.example.projectmanager.models.User
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 
+/**
+ * SignIn fragment takes name and email of the user and then call firestore database to collect the
+ * details of user if present and then navigate to home page
+ */
+
 class SignInFragment : Fragment() {
 
     private lateinit var binding : FragmentSignInBinding
@@ -82,8 +87,8 @@ class SignInFragment : Fragment() {
                     }
                     else{
                         hideProgressDialog()
-                        binding.signInEmail.setText("")
-                        binding.signInPassword.setText("")
+                        binding.signInEmail.setText(resources.getString(R.string.empty_string))
+                        binding.signInPassword.setText(resources.getString(R.string.empty_string))
                         showErrorSnackBar("Authentication failed no such id found")
                     }
                 }

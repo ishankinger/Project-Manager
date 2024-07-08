@@ -11,12 +11,8 @@
         android:icon="@drawable/baseline_dashboard_24"
         android:title="@string/cards" />
     <item
-        android:id="@+id/newsFragment2"
-        android:icon="@drawable/baseline_newspaper_24"
-        android:title="@string/news" />
-    <item
-        android:id="@+id/noteFragment"
-        android:icon="@drawable/baseline_notes_24"
-        android:title="@string/my_notes" />
+        android:id="@+id/profileFragment2"
+        android:icon="@drawable/ic_user_place_holder"
+        android:title="@string/profile" />
 
 </menu>

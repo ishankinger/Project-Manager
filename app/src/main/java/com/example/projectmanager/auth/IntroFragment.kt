@@ -11,6 +11,11 @@ import androidx.navigation.Navigation
 import com.example.projectmanager.R
 import com.example.projectmanager.databinding.FragmentIntroBinding
 
+/**
+ * Intro Fragment show options of signIn or signUp to the user
+ * Just navigation occurs in this fragment using sliding animations
+ */
+
 class IntroFragment : Fragment() {
 
 

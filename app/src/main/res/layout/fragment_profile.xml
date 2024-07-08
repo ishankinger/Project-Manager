@@ -10,33 +10,6 @@
         android:orientation="vertical"
         android:background="@color/white">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/white"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp">
-
-            <ImageView
-                android:id="@+id/backButtonProfile"
-                android:layout_width="24dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/baseline_arrow_back_24"
-                android:contentDescription="@string/back_button" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/my_profile"
-                android:textColor="@color/black"
-                android:textSize="24sp"/>
-
-        </LinearLayout>
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -53,62 +26,72 @@
                     android:layout_height="150dp"
                     android:layout_gravity="center"
                     android:elevation="10dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="20dp"
                     android:contentDescription="@string/intro_image"
                     android:background="@drawable/outline_circle"
                     android:src="@drawable/ic_user_place_holder" />
 
-                <EditText
-                    android:id="@+id/profileName"
-                    android:layout_width="260dp"
-                    android:layout_height="64dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginRight="32dp"
-                    android:layout_gravity="center"
-                    android:hint="@string/Name"
-                    android:gravity="center"
-                    android:background="@drawable/outline_box"
-                    android:autofillHints="name"
-                    android:inputType="textVisiblePassword"
-                    android:textSize="16sp"
-                    android:shadowColor="@color/dark_orchid"
-                    android:textColor="@color/black"/>
+                    android:layout_marginRight="32dp">
 
-                <EditText
-                    android:id="@+id/profileEmail"
-                    android:layout_width="260dp"
-                    android:layout_height="64dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
-                    android:layout_gravity="center"
-                    android:hint="@string/email"
-                    android:gravity="center"
-                    android:background="@drawable/outline_box"
-                    android:focusableInTouchMode="false"
-                    android:autofillHints="emailAddress"
-                    android:inputType="textEmailAddress"
-                    android:textSize="16sp"
-                    android:shadowColor="@color/orchid"
-                    android:textColor="@color/grey"/>
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/profileName"
+                        android:layout_width="260dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:hint="@string/Name"
+                        android:autofillHints="name"
+                        android:inputType="textVisiblePassword"
+                        android:textSize="16sp"
+                        android:shadowColor="@color/dark_orchid"
+                        android:textColor="@color/black"/>
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/profileMobileNumber"
-                    android:layout_width="260dp"
-                    android:layout_height="64dp"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/profileEmail"
+                        android:layout_width="260dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:hint="@string/email"
+                        android:focusableInTouchMode="false"
+                        android:autofillHints="emailAddress"
+                        android:inputType="textEmailAddress"
+                        android:textSize="16sp"
+                        android:shadowColor="@color/orchid"
+                        android:textColor="@color/grey"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="32dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginRight="32dp"
-                    android:layout_gravity="center"
-                    android:hint="@string/mobile_number"
-                    android:gravity="center"
-                    android:background="@drawable/outline_box"
-                    android:autofillHints="phone"
-                    android:inputType="phone"
-                    android:textSize="16sp"
-                    android:shadowColor="@color/dark_orchid"
-                    android:textColor="@color/black"/>
+                    android:layout_marginRight="32dp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/profileMobileNumber"
+                        android:layout_width="260dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center"
+                        android:hint="@string/mobile_number"
+                        android:autofillHints="phone"
+                        android:inputType="phone"
+                        android:textSize="16sp"
+                        android:shadowColor="@color/dark_orchid"
+                        android:textColor="@color/black"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
 
                 <Button
                     android:id="@+id/updateButton"

@@ -1,50 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:orientation="vertical">
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="board"
+            type="com.example.projectmanager.models.Board" />
+        <variable
+            name="clickListener"
+            type="com.example.projectmanager.boards.BoardsListItemAdapter.BoardsClickListener"/>
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:background="?attr/selectableItemBackground"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_board_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:src="@drawable/ic_user_place_holder"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
 
         <LinearLayout
+            android:id="@+id/boardLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_name"
+            <ImageView
+                android:id="@+id/boardImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:contentDescription="@string/board_image"
+                android:src="@drawable/color_gradient"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:textColor="@color/black"
-                tools:text="Board Name" />
+                android:onClick="@{()->clickListener.onClick(board)}"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_created_by"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Created By" />
+                <TextView
+                    android:id="@+id/boardName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    tools:text="Board Name" />
+
+                <TextView
+                    android:id="@+id/boardCreatedBy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="Created By" />
+            </LinearLayout>
         </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="20dp"/>
-
-</LinearLayout>
-    <!--END-->
+</layout>

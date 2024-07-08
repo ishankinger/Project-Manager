@@ -22,6 +22,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
+/**
+ * SignUp fragment takes the name, email and password from the user and create userId in firebase
+ * authentication and then navigate to intro page for further signIn
+ */
+
 class SignUpFragment : Fragment() {
 
     private lateinit var binding : FragmentSignUpBinding
@@ -84,9 +89,9 @@ class SignUpFragment : Fragment() {
 
                     } else {
                         hideProgressDialog()
-                        binding.signUpEmail.setText("")
-                        binding.signUpPassword.setText("")
-                        binding.signUpName.setText("")
+                        binding.signUpEmail.setText(resources.getString(R.string.empty_string))
+                        binding.signUpPassword.setText(R.string.empty_string)
+                        binding.signUpName.setText(R.string.empty_string)
                         showErrorSnackBar("Error occurs Email already exists")
                     }
                 }

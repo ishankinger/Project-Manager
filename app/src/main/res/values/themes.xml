@@ -6,7 +6,7 @@
         <item name="colorPrimaryVariant">@color/orchid</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/dark_orchid</item>
         <item name="android:windowLightStatusBar">true</item>
         <!-- Customize your theme here. -->
         <item name="android:navigationBarColor">@color/orchid</item>

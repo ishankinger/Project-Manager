@@ -11,15 +11,13 @@
         android:label="fragment_boards"
         tools:layout="@layout/fragment_boards" >
         <action
-            android:id="@+id/action_boardsFragment2_to_profileFragment2"
-            app:destination="@id/profileFragment2"
-            app:popUpTo="@id/boardsFragment2"
-            app:popUpToInclusive="false" />
-        <action
             android:id="@+id/action_boardsFragment2_to_boardsCreateFragment"
             app:destination="@id/boardsCreateFragment"
             app:popUpTo="@id/boardsFragment2"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_boardsFragment2_to_tasksFragment"
+            app:destination="@id/tasksFragment"/>
     </fragment>
     <fragment
         android:id="@+id/cardsFragment2"
@@ -27,18 +25,10 @@
         android:label="fragment_cards"
         tools:layout="@layout/fragment_cards" />
     <fragment
-        android:id="@+id/newsFragment2"
-        android:name="com.example.projectmanager.news.NewsFragment"
-        android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
-    <fragment
         android:id="@+id/profileFragment2"
         android:name="com.example.projectmanager.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment2_to_boardsFragment2"
-            app:destination="@id/boardsFragment2" />
     </fragment>
     <fragment
         android:id="@+id/boardsCreateFragment"
@@ -47,11 +37,65 @@
         tools:layout="@layout/fragment_boards_create" >
         <action
             android:id="@+id/action_boardsCreateFragment_to_boardsFragment2"
-            app:destination="@id/boardsFragment2" />
+            app:destination="@id/boardsFragment2"
+            app:popUpTo="@id/boardsCreateFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/noteFragment"
-        android:name="com.example.projectmanager.note.NoteFragment"
-        android:label="fragment_note"
-        tools:layout="@layout/fragment_note" />
+        android:id="@+id/membersFragment"
+        android:name="com.example.projectmanager.members.MembersFragment"
+        android:label="fragment_members"
+        tools:layout="@layout/fragment_members" >
+        <argument
+            android:name="boardDetails"
+            app:argType="com.example.projectmanager.models.Board" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateBoardsFragment"
+        android:name="com.example.projectmanager.boards.UpdateBoardsFragment"
+        android:label="fragment_update_boards"
+        tools:layout="@layout/fragment_update_boards" />
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.example.projectmanager.tasks.TasksFragment"
+        android:label="fragment_tasks"
+        tools:layout="@layout/fragment_tasks" >
+        <action
+            android:id="@+id/action_tasksFragment_to_membersFragment"
+            app:destination="@id/membersFragment"
+            app:popUpTo="@id/tasksFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_tasksFragment_to_updateBoardsFragment"
+            app:destination="@id/updateBoardsFragment"
+            app:popUpTo="@id/tasksFragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="boardId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_tasksFragment_to_cardsDetailsFragment"
+            app:destination="@id/cardsDetailsFragment"
+            app:popUpTo="@id/tasksFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/cardsDetailsFragment"
+        android:name="com.example.projectmanager.cards.CardsDetailsFragment"
+        android:label="fragment_cards_details"
+        tools:layout="@layout/fragment_cards_details" >
+        <argument android:name="taskListPosition"
+            app:argType="integer" />
+        <argument
+            android:name="boardDetails"
+            app:argType="com.example.projectmanager.models.Board" />
+        <argument
+            android:name="card"
+            app:argType="com.example.projectmanager.models.Card" />
+        <action
+            android:id="@+id/action_cardsDetailsFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment"
+            app:popUpTo="@id/tasksFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
