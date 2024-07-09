@@ -116,6 +116,32 @@ class FireStore {
             }
     }
 
+    // function to search and get board list by name
+    fun getBoardListSearch(fragment : BoardsFragment, name : String){
+        mFireStore.collection(Constants.BOARD)
+            .whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserID())
+            .get()
+            .addOnSuccessListener {
+                    document ->
+                val boardList : ArrayList<Board> = ArrayList()
+                for(i in document.documents){
+                    val board = i.toObject(Board::class.java)!!
+                    board.documentId = i.id
+                    var check = true
+                    if(name.length <= board.name.length){
+                        for(i in name.indices){
+                            if(name[i] != board.name[i]){
+                                check = false
+                                break
+                            }
+                        }
+                        if(check) boardList.add(board)
+                    }
+                }
+                fragment.populateBoardsListToUI(boardList)
+            }
+    }
+
     // function to get the board details from a particular board using it's board document id
     fun getBoardDetails(fragment : TasksFragment, boardDocumentId : String){
         mFireStore.collection(Constants.BOARD)
@@ -215,6 +241,29 @@ class FireStore {
                         Toast.makeText(fragment.context,"Error updating member list", Toast.LENGTH_SHORT).show()
                     }
                 }
+            }
+    }
+
+    fun getAssignedMemberListSearch(fragment : MembersFragment,assignedTo : ArrayList<String>, newText : String ){
+        mFireStore.collection(Constants.USERS)
+            .whereIn(Constants.ID, assignedTo)
+            .get()
+            .addOnSuccessListener { document ->
+                val userList: ArrayList<User> = ArrayList()
+                for (i in document.documents) {
+                    val user = i.toObject(User::class.java)!!
+                    if(user.name.length >= newText.length){
+                        var check = true
+                        for(i in newText.indices){
+                            if(user.name[i] != newText[i]){
+                                check = false
+                                break
+                            }
+                        }
+                        if(check) userList.add(user)
+                    }
+                }
+                fragment.setUpMembersList(userList)
             }
     }
 

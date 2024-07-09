@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
@@ -28,7 +29,7 @@ import com.example.projectmanager.models.User
  * Members fragment shows the members of the board
  */
 
-class MembersFragment : Fragment(), MenuProvider {
+class MembersFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener   {
 
     private lateinit var binding : FragmentMembersBinding
     private lateinit var mBoardDetails : Board
@@ -74,22 +75,6 @@ class MembersFragment : Fragment(), MenuProvider {
         hideProgressBar()
     }
 
-    // setting up the menu for this fragment
-    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        menu.clear()
-        menuInflater.inflate(R.menu.member_fragment_menu,menu)
-    }
-
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        return when(menuItem.itemId){
-            R.id.addMember->{
-                dialogSearchMember()
-                true
-            }
-            else -> false
-        }
-    }
-
     // function to show dialog to the user to add any member by putting his/her email id
     private fun dialogSearchMember(){
         val dialog = context?.let { Dialog(it) }!!
@@ -132,6 +117,38 @@ class MembersFragment : Fragment(), MenuProvider {
         hideProgressDialog()
         mAssignedMembersList.add(user)
         setUpMembersList(mAssignedMembersList)
+    }
+
+    // setting up the menu for this fragment
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menu.clear()
+        menuInflater.inflate(R.menu.member_fragment_menu,menu)
+
+        val menuSearch = menu.findItem(R.id.searchMembersMenu).actionView as SearchView
+        menuSearch.isSubmitButtonEnabled = false
+        menuSearch.setOnQueryTextListener(this)
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when(menuItem.itemId){
+            R.id.addMember->{
+                dialogSearchMember()
+                true
+            }
+            else -> false
+        }
+    }
+
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if(newText != null){
+            binding.recyclerViewMembers.visibility = View.GONE
+            FireStore().getAssignedMemberListSearch(this,mBoardDetails.assignedTo,newText)
+        }
+        return true
     }
 
     // function to show progress dialog box when some task is going on

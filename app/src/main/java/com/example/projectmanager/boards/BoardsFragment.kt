@@ -2,7 +2,9 @@ package com.example.projectmanager.boards
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
@@ -23,7 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
  * Here we can navigate to particular boards and can also navigate to create board fragment
  */
 
-class BoardsFragment : Fragment(), MenuProvider {
+class BoardsFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener {
 
     private lateinit var binding : FragmentBoardsBinding
     private lateinit var boardsListItemAdapter: BoardsListItemAdapter
@@ -91,6 +93,10 @@ class BoardsFragment : Fragment(), MenuProvider {
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menu.clear()
         menuInflater.inflate(R.menu.boards_fragment_menu,menu)
+
+        val menuSearch = menu.findItem(R.id.searchBoardsMenu).actionView as SearchView
+        menuSearch.isSubmitButtonEnabled = false
+        menuSearch.setOnQueryTextListener(this)
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
@@ -101,6 +107,18 @@ class BoardsFragment : Fragment(), MenuProvider {
             }
             else-> false
         }
+    }
+
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        if(newText != null){
+            binding.recyclerViewBoards.visibility = View.GONE
+            FireStore().getBoardListSearch(this,newText)
+        }
+        return true
     }
 
     // function to show progress bar when some task is going on

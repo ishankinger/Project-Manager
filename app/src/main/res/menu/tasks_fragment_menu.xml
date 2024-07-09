@@ -5,19 +5,17 @@
     <item
         android:id="@+id/memberMenuTasks"
         android:icon="@drawable/baseline_people_alt_24"
-        android:title="@string/members" />
+        android:title="@string/members"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/editMenuTasks"
         android:icon="@drawable/baseline_edit_document_24"
-        android:title="@string/edit_board" />
+        android:title="@string/edit_board"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/deleteMenuTasks"
         android:icon="@drawable/baseline_delete_24"
-        android:title="@string/delete_board" />
-    <item
-        android:id="@+id/searchTasksMenu"
-        android:icon="@drawable/baseline_search_24"
-        app:showAsAction="ifRoom"
-        android:title="@string/search" />
+        android:title="@string/delete_board"
+        app:showAsAction="ifRoom"/>
 
 </menu>

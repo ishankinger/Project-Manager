@@ -6,7 +6,8 @@
         android:id="@+id/searchMembersMenu"
         android:icon="@drawable/baseline_search_24"
         app:showAsAction="ifRoom"
-        android:title="@string/search" />
+        android:title="@string/search"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 
     <item
         android:id="@+id/addMember"

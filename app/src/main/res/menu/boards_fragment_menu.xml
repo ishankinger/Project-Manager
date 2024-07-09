@@ -10,5 +10,6 @@
         android:id="@+id/searchBoardsMenu"
         android:icon="@drawable/baseline_search_24"
         android:title="@string/search"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 </menu>
