@@ -9,6 +9,7 @@ data class Board(
     val name : String = "",
     val image : String = "",
     val createdBy : String = "",
+    val description : String = "",
     val assignedTo : ArrayList<String> = ArrayList(),
     var documentId : String = "",
     var taskList : ArrayList<Task> = ArrayList()

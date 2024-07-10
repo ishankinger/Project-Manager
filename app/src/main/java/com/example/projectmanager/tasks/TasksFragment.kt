@@ -274,7 +274,7 @@ class TasksFragment : Fragment(), MenuProvider {
                 true
             }
             R.id.editMenuTasks ->{
-                Navigation.findNavController(binding.root).navigate(R.id.action_tasksFragment_to_updateBoardsFragment)
+                findNavController().navigate(TasksFragmentDirections.actionTasksFragmentToUpdateBoardsFragment(mBoardDetails))
                 true
             }
             else-> false

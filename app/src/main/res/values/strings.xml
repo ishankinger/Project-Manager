@@ -67,4 +67,6 @@
     <string name="delete_board">Delete Board</string>
     <string name="edit_board">Edit Board</string>
     <string name="done_button">done button</string>
+    <string name="board_description">Board Description</string>
+    <string name="update_board">Update Board</string>
 </resources>

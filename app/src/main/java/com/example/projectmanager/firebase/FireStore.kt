@@ -6,6 +6,7 @@ import com.example.projectmanager.auth.SignInFragment
 import com.example.projectmanager.auth.SignUpFragment
 import com.example.projectmanager.boards.BoardsCreateFragment
 import com.example.projectmanager.boards.BoardsFragment
+import com.example.projectmanager.boards.UpdateBoardsFragment
 import com.example.projectmanager.cards.CardsDetailsFragment
 import com.example.projectmanager.cards.CardsFragment
 import com.example.projectmanager.members.MembersFragment
@@ -166,6 +167,20 @@ class FireStore {
             .delete()
             .addOnSuccessListener {
                 fragment.onDeleteBoard()
+            }
+    }
+
+    // function to update the details of the board
+    fun updateBoardDetails(fragment : UpdateBoardsFragment, boardDocumentId: String, boardDetailsHashMap : HashMap<String,Any>){
+        mFireStore.collection(Constants.BOARD)
+            .document(boardDocumentId)
+            .update(boardDetailsHashMap)
+            .addOnSuccessListener {
+                fragment.boardDetailsUpdatedSuccess()
+            }
+            .addOnFailureListener{
+                fragment.hideProgressDialog()
+                Toast.makeText(fragment.context,"Error updating the boards",Toast.LENGTH_SHORT).show()
             }
     }
 

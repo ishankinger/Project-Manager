@@ -9,6 +9,7 @@ package com.example.projectmanager.utils
 object Constants {
     const val USERS : String = "users"
     const val NAME : String = "name"
+    const val DESCRIPTION : String = "description"
     const val MOBILE : String = "mobile"
     const val IMAGE : String = "image"
     const val BOARD : String = "board"

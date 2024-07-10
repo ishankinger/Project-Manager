@@ -30,6 +30,7 @@ class BoardsListItemAdapter(private val clickListener: BoardsClickListener) : Li
         fun bind(item: Board, clickListener: BoardsClickListener) {
             binding.boardName.text = item.name
             binding.boardCreatedBy.text = "Created By : " + item.createdBy
+            binding.boardDescription.text = "Description : " + item.description
             Glide.with(binding.root)
                 .load(item.image)
                 .centerCrop()

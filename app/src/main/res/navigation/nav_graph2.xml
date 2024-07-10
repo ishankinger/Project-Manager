@@ -54,7 +54,16 @@
         android:id="@+id/updateBoardsFragment"
         android:name="com.example.projectmanager.boards.UpdateBoardsFragment"
         android:label="fragment_update_boards"
-        tools:layout="@layout/fragment_update_boards" />
+        tools:layout="@layout/fragment_update_boards" >
+        <argument
+            android:name="boardDetails"
+            app:argType="com.example.projectmanager.models.Board" />
+        <action
+            android:id="@+id/action_updateBoardsFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment"
+            app:popUpTo="@id/tasksFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/tasksFragment"
         android:name="com.example.projectmanager.tasks.TasksFragment"

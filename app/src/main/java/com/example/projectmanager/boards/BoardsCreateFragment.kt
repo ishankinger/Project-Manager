@@ -66,8 +66,12 @@ class BoardsCreateFragment : Fragment() {
             }
             else{
                 val name : String = binding.createBoardName.text.toString().trim{it <= ' '}
+                val desc : String = binding.createBoardDescription.text.toString().trim{it <= ' '}
                 if(name == ""){
                     showErrorSnackBar("Enter the name of the Board")
+                }
+                else if(desc == ""){
+                    showErrorSnackBar("Enter the description of the Board")
                 }
                 else{
                     showProgressDialog(resources.getString(R.string.please_wait))
@@ -162,8 +166,9 @@ class BoardsCreateFragment : Fragment() {
         assignedUsersArrayList.add(FireStore().getCurrentUserID())
 
         val name : String = binding.createBoardName.text.toString().trim{it <= ' '}
+        val desc : String = binding.createBoardDescription.text.toString().trim{it <= ' '}
 
-        val board = Board(name,mProfileImageURL,mUser.name,assignedUsersArrayList)
+        val board = Board(name,mProfileImageURL,mUser.name,desc,assignedUsersArrayList)
 
         FireStore().createBoard(this,board)
 

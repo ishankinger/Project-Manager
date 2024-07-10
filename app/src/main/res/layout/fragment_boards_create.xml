@@ -28,7 +28,7 @@
                     android:layout_gravity="center"
                     android:contentDescription="@string/intro_image"
                     android:background="@drawable/outline_circle"
-                    android:src="@drawable/ic_user_place_holder" />
+                    android:src="@drawable/baseline_playlist_add_circle_24" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -51,6 +51,26 @@
                         android:textColor="@color/black" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/createBoardDescription"
+                        android:layout_width="260dp"
+                        android:layout_height="64dp"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_gravity="center"
+                        android:hint="@string/board_description"
+                        android:autofillHints="name"
+                        android:inputType="textVisiblePassword"
+                        android:textSize="16sp"
+                        android:shadowColor="@color/dark_orchid"
+                        android:textColor="@color/black" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <Button

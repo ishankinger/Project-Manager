@@ -16,6 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:orientation="vertical">
 
         <View
@@ -28,42 +30,55 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:clickable="true"
+            android:background="@drawable/color_gradient"
+            android:onClick="@{()->clickListener.onClick(board)}"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/boardImage"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="162dp"
+                android:layout_height="129dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:contentDescription="@string/board_image"
-                android:src="@drawable/color_gradient"/>
+                android:src="@drawable/color_gradient" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->clickListener.onClick(board)}"
-                android:orientation="vertical">
+                android:layout_marginTop="5dp"
+                android:orientation="vertical"
+                android:layout_gravity="top">
 
                 <TextView
                     android:id="@+id/boardName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
                     tools:text="Board Name" />
 
                 <TextView
                     android:id="@+id/boardCreatedBy"
                     android:layout_width="match_parent"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
                     android:layout_height="wrap_content"
                     tools:text="Created By" />
+
+                <TextView
+                    android:id="@+id/boardDescription"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="5dp"
+                    android:textSize="12sp"
+                    android:layout_height="wrap_content"
+                    tools:text="@string/board_description"/>
             </LinearLayout>
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"/>
 
     </LinearLayout>
 </layout>

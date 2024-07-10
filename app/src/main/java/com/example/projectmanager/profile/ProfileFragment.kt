@@ -14,6 +14,7 @@ import android.webkit.MimeTypeMap
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
@@ -23,6 +24,7 @@ import com.example.projectmanager.databinding.FragmentProfileBinding
 import com.example.projectmanager.firebase.FireStore
 import com.example.projectmanager.models.User
 import com.example.projectmanager.utils.Constants
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -186,6 +188,17 @@ class ProfileFragment : Fragment() {
         // updation done using Hash maps, so creating hash maps for updated values
         val userHashMap: HashMap<String,Any> = HashMap()
 
+        if(binding.profileName.text.toString().isEmpty()){
+            hideProgressDialog()
+            showErrorSnackBar("Name missing")
+            return
+        }
+        else if(binding.profileMobileNumber.text.toString().isEmpty()){
+            hideProgressDialog()
+            showErrorSnackBar("Mobile Number missing")
+            return
+        }
+
         var anyChangesMade = false
 
         if (mProfileImageURL.isNotEmpty() && mProfileImageURL != mUserDetails.image) {
@@ -224,6 +237,15 @@ class ProfileFragment : Fragment() {
     // this will stop showing dialog box when long running task is completed
     private fun hideProgressDialog(){
         mProgressDialog.dismiss()
+    }
+
+    // function to show snack Bar event
+    private fun showErrorSnackBar(message: String){
+        val snackBar = Snackbar.make(binding.root,message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        context?.let { ContextCompat.getColor(it,R.color.snackbar_error_color) }
+            ?.let { snackBarView.setBackgroundColor(it) }
+        snackBar.show()
     }
 
 }
