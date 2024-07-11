@@ -77,6 +77,9 @@ class FireStore {
                     is ProfileFragment->{
                         fragment.profileUpdateSuccess()
                     }
+                    is BoardsFragment->{
+                        fragment.tokenUpdateSuccess()
+                    }
                 }
             }
     }

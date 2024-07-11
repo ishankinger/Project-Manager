@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.projectmanager"
-        minSdk 33
+        minSdk 31
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -39,6 +39,11 @@ android {
     dataBinding{
         enabled=true
     }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES' // Exclude specific files
+        // You can add more exclusion or merging rules as needed
+    }
 }
 
 dependencies {
@@ -62,6 +67,13 @@ dependencies {
     implementation("com.google.firebase:firebase-storage:21.0.0")
     implementation("com.google.firebase:firebase-messaging:24.0.0")
 
+    implementation("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation("org.json:json:20210307")
+//
+//    implementation 'com.google.cloud:google-cloud-core:2.1.0'
+    implementation 'com.google.auth:google-auth-library-oauth2-http:0.26.0'
+
+
     implementation("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 
@@ -75,8 +87,6 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation ("androidx.room:room-ktx:2.6.1")
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.2")

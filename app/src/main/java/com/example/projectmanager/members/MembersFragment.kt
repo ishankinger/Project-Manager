@@ -24,6 +24,15 @@ import com.example.projectmanager.databinding.FragmentMembersBinding
 import com.example.projectmanager.firebase.FireStore
 import com.example.projectmanager.models.Board
 import com.example.projectmanager.models.User
+import com.example.projectmanager.utils.Constants
+import com.google.auth.oauth2.GoogleCredentials
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.OkHttpClient
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
+import java.io.FileInputStream
+import okhttp3.Request
+import java.io.IOException
 
 /**
  * Members fragment shows the members of the board
@@ -117,6 +126,7 @@ class MembersFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener
         hideProgressDialog()
         mAssignedMembersList.add(user)
         setUpMembersList(mAssignedMembersList)
+        FCMService.sendNotification(user.fcmToken,mBoardDetails.name)
     }
 
     // setting up the menu for this fragment
@@ -173,5 +183,50 @@ class MembersFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener
     // this will stop showing progress bar when long running task is completed
     fun hideProgressBar(){
         binding.membersProgressBar.visibility = View.GONE
+    }
+
+    object AccessTokenProvider {
+        private const val SCOPES = "https://www.googleapis.com/auth/firebase.messaging"
+        private const val CREDENTIALS_PATH = "google-services.json"
+
+        fun getAccessToken(): String {
+            val googleCredentials = GoogleCredentials
+                .fromStream(FileInputStream(CREDENTIALS_PATH))
+                .createScoped(listOf(SCOPES))
+            googleCredentials.refreshIfExpired()
+            return googleCredentials.accessToken.tokenValue
+        }
+    }
+
+    object FCMService {
+        private const val FCM_URL = "https://fcm.googleapis.com/v1/projects/project-manager-fa198/messages:send"
+        private val client = OkHttpClient()
+
+        fun sendNotification(token: String, boardName : String) {
+            val accessToken = AccessTokenProvider.getAccessToken()
+            val json = JSONObject()
+            val messageJson = JSONObject()
+            val notificationJson = JSONObject()
+
+            notificationJson.put(Constants.FCM_KEY_TITLE, "Assigned to the Board $boardName")
+            notificationJson.put(Constants.FCM_KEY_MESSAGE, "You have been assigned to the new board")
+            messageJson.put("token", token)
+            messageJson.put("notification", notificationJson)
+            json.put("message", messageJson)
+
+            val body = json.toString().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            val request = Request.Builder()
+                .url(FCM_URL)
+                .post(body)
+                .addHeader("Authorization", "Bearer $accessToken")
+                .build()
+
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    throw IOException("Unexpected code $response")
+                }
+                println(response.body!!.string())
+            }
+        }
     }
 }

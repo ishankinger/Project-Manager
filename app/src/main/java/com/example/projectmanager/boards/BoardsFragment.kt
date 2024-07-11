@@ -1,8 +1,11 @@
 package com.example.projectmanager.boards
 
+import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -18,7 +21,9 @@ import com.example.projectmanager.databinding.FragmentBoardsBinding
 import com.example.projectmanager.firebase.FireStore
 import com.example.projectmanager.models.Board
 import com.example.projectmanager.models.User
+import com.example.projectmanager.utils.Constants
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 
 /**
  * Boards fragment is home page of this app which contains all boards assigned to the user
@@ -30,6 +35,9 @@ class BoardsFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
     private lateinit var binding : FragmentBoardsBinding
     private lateinit var boardsListItemAdapter: BoardsListItemAdapter
     private var bottomNavigationView: BottomNavigationView? = null
+
+    private lateinit var mUserName : String
+    private lateinit var mSharePreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +53,26 @@ class BoardsFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
         val menuHost : MenuHost = requireActivity()
         menuHost.addMenuProvider(this,viewLifecycleOwner, Lifecycle.State.RESUMED)
 
-        showProgressDialog()
-        FireStore().signInRegisteredUser(this)
+        mSharePreferences = context?.getSharedPreferences(
+            Constants.PROJECT_MANAGER_PREFERENCE,
+            Context.MODE_PRIVATE)!!
+
+        val tokenUpdated = mSharePreferences.getBoolean(Constants.FCM_TOKEN_UPDATED,false)
+
+        if(tokenUpdated){
+            showProgressDialog()
+            FireStore().signInRegisteredUser(this)
+        }
+        else{
+            FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                    return@addOnCompleteListener
+                }
+                val token = task.result
+                updateFCMToken(token)
+            }
+        }
 
         binding.buttonBoards.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_boardsFragment2_to_boardsCreateFragment)
@@ -87,6 +113,20 @@ class BoardsFragment : Fragment(), MenuProvider, SearchView.OnQueryTextListener 
             binding.recyclerViewBoards.visibility = View.GONE
             binding.noBoards.visibility = View.VISIBLE
         }
+    }
+
+    fun tokenUpdateSuccess(){
+        val editor : SharedPreferences.Editor = mSharePreferences.edit()
+        editor.putBoolean(Constants.FCM_TOKEN_UPDATED,true)
+        editor.apply()
+        FireStore().signInRegisteredUser(this)
+    }
+
+    private fun updateFCMToken(token : String){
+        val userHashMap = HashMap<String,Any>()
+        userHashMap[Constants.FCM_TOKEN] = token
+        showProgressDialog()
+        FireStore().updateUserProfileData(this,userHashMap)
     }
 
     // function providing menu to the fragment

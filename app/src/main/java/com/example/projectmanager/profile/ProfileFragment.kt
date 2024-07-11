@@ -2,6 +2,7 @@ package com.example.projectmanager.profile
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -19,6 +20,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.example.projectmanager.R
+import com.example.projectmanager.base.Base2Activity
 import com.example.projectmanager.base.BaseActivity
 import com.example.projectmanager.databinding.FragmentProfileBinding
 import com.example.projectmanager.firebase.FireStore
@@ -83,6 +85,10 @@ class ProfileFragment : Fragment() {
         // sign Out button clicked
         binding.signOutButton.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
+            val mSharePreferences = context?.getSharedPreferences(
+                Constants.PROJECT_MANAGER_PREFERENCE,
+                Context.MODE_PRIVATE)!!
+            mSharePreferences.edit().clear().apply()
             val intent = Intent(context, BaseActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)

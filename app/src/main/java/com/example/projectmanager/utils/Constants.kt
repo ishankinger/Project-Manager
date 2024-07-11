@@ -19,4 +19,10 @@ object Constants {
     const val TASK_LIST : String = "taskList"
     const val ID : String = "id"
     const val EMAIL : String = "email"
+    const val PROJECT_MANAGER_PREFERENCE = "ProjectManagerPrefs"
+    const val FCM_TOKEN_UPDATED = "fcmTokenUpdated"
+    const val FCM_TOKEN = "fcmToken"
+    const val FCM_KEY_TITLE : String = "title"
+    const val FCM_KEY_MESSAGE : String = "message"
+
 }
